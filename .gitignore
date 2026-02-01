@@ -30,3 +30,4 @@ coverage/
 # Misc
 *.tgz
 .cache/
+client/node_modules/
