@@ -28,10 +28,18 @@ interface AuthState {
 }
 
 // Async thunks
-export const fetchJobs = createAsyncThunk('jobs/fetchJobs', async () => {
-  const response = await fetch('/api/v1/jobs')
-  const data = await response.json()
-  return data.data.jobs
+export const fetchJobs = createAsyncThunk('jobs/fetchJobs', async (_, { rejectWithValue }) => {
+  try {
+    const response = await fetch('/api/v1/jobs')
+    const data = await response.json()
+    if (!response.ok) {
+      return rejectWithValue(data.message || 'Failed to load jobs')
+    }
+    // Handle different response structures
+    return data.data?.jobs || data.jobs || []
+  } catch (error) {
+    return rejectWithValue('Failed to connect to server')
+  }
 })
 
 export const login = createAsyncThunk(

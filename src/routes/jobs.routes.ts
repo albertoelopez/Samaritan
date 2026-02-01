@@ -13,6 +13,7 @@ import {
 const router = Router();
 
 // Public routes (with optional auth for personalization)
+router.get('/', optionalAuth, jobsController.listJobs);
 router.get('/search', optionalAuth, validate(searchJobsValidator), jobsController.searchJobs);
 router.get('/nearby', optionalAuth, validate(searchJobsValidator), jobsController.getNearbyJobs);
 router.get('/:id', optionalAuth, validate(jobIdValidator), jobsController.getJob);

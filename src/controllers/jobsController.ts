@@ -14,6 +14,23 @@ export const createJob = asyncHandler(async (req: Request, res: Response) => {
   });
 });
 
+export const listJobs = asyncHandler(async (req: Request, res: Response) => {
+  const { page, limit } = req.query;
+
+  const result = await JobService.searchJobs(
+    {},
+    {
+      page: page ? parseInt(page as string, 10) : undefined,
+      limit: limit ? parseInt(limit as string, 10) : undefined,
+    }
+  );
+
+  res.json({
+    status: 'success',
+    data: result,
+  });
+});
+
 export const getJob = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
 
