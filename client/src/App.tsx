@@ -5,6 +5,9 @@ import Home from './pages/Home'
 import Jobs from './pages/Jobs'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Messages from './pages/Messages'
+import MapView from './pages/MapView'
+import JobDetail from './pages/JobDetail'
 
 function App() {
   const { user } = useSelector((state: RootState) => state.auth)
@@ -27,6 +30,14 @@ function App() {
                 <Link to="/jobs" className="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium">
                   Find Jobs
                 </Link>
+                <Link to="/map" className="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium">
+                  Map
+                </Link>
+                {user && (
+                  <Link to="/messages" className="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium">
+                    Messages
+                  </Link>
+                )}
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -66,6 +77,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/jobs" element={<Jobs />} />
+          <Route path="/jobs/:id" element={<JobDetail />} />
+          <Route path="/map" element={<MapView />} />
+          <Route path="/messages" element={<Messages />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

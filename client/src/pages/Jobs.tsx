@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { RootState, AppDispatch, fetchJobs } from '../store/store'
 
 export default function Jobs() {
@@ -76,7 +77,7 @@ export default function Jobs() {
       ) : (
         <div className="grid gap-4">
           {jobs.map((job) => (
-            <div key={job.id} className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+            <Link key={job.id} to={`/jobs/${job.id}`} className="block bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
               <div className="flex justify-between items-start">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
@@ -106,12 +107,12 @@ export default function Jobs() {
                   <div className="text-2xl font-bold text-primary-600">
                     {formatBudget(job.budget_min, job.budget_max)}
                   </div>
-                  <button className="mt-3 bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
-                    Apply Now
-                  </button>
+                  <span className="mt-3 inline-block bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg text-sm font-medium">
+                    View Details
+                  </span>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

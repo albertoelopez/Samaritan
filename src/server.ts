@@ -1,8 +1,11 @@
+import http from 'http';
+import { Server as SocketServer } from 'socket.io';
 import app from './app';
 import { config } from './config/environment';
 import { testConnection, closeConnection } from './config/database';
 import { closeRedisConnection } from './config/redis';
 import { logger } from './utils/logger';
+import { setupSocketHandlers } from './socket/socketHandler';
 
 const PORT = config.server.port;
 const HOST = config.server.host;
@@ -16,9 +19,25 @@ async function startServer(): Promise<void> {
       process.exit(1);
     }
 
+    // Create HTTP server
+    const server = http.createServer(app);
+
+    // Setup Socket.io
+    const io = new SocketServer(server, {
+      cors: {
+        origin: ['http://localhost:3000', 'http://localhost:5173'],
+        methods: ['GET', 'POST'],
+        credentials: true,
+      },
+    });
+
+    // Setup socket handlers
+    setupSocketHandlers(io);
+
     // Start server
-    const server = app.listen(PORT, HOST, () => {
+    server.listen(PORT, HOST, () => {
       logger.info(`Server running on http://${HOST}:${PORT}`);
+      logger.info(`WebSocket enabled`);
       logger.info(`Environment: ${config.nodeEnv}`);
     });
 
