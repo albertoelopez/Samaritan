@@ -77,13 +77,13 @@ test.describe('Samaritan App', () => {
       await page.goto('/jobs')
       await page.waitForTimeout(2000)
 
-      const jobCards = page.locator('.bg-white.rounded-lg.shadow-sm.p-6')
+      const jobCards = page.locator('a.block.bg-white.rounded-lg')
       const count = await jobCards.count()
 
       if (count > 0) {
         // Check first job card has expected elements
         const firstCard = jobCards.first()
-        await expect(firstCard.getByRole('button', { name: 'Apply Now' })).toBeVisible()
+        await expect(firstCard.getByText('View Details')).toBeVisible()
       }
     })
   })

@@ -197,7 +197,7 @@ test.describe('User Scenarios', () => {
     await page.screenshot({ path: 'test-results/scenario10-jobs-list.png' })
 
     // Check if jobs loaded
-    const jobCards = page.locator('.bg-white.rounded-lg.shadow-sm.p-6')
+    const jobCards = page.locator('a.block.bg-white.rounded-lg')
     const count = await jobCards.count()
 
     if (count > 0) {
@@ -205,10 +205,15 @@ test.describe('User Scenarios', () => {
       await jobCards.first().hover()
       await page.screenshot({ path: 'test-results/scenario10-job-hover.png' })
 
-      // Check Apply Now button
-      const applyBtn = jobCards.first().getByRole('button', { name: 'Apply Now' })
-      await expect(applyBtn).toBeVisible()
-      await page.screenshot({ path: 'test-results/scenario10-apply-btn.png' })
+      // Check View Details link
+      const viewDetails = jobCards.first().getByText('View Details')
+      await expect(viewDetails).toBeVisible()
+      await page.screenshot({ path: 'test-results/scenario10-view-details.png' })
+
+      // Click to go to job detail page
+      await jobCards.first().click()
+      await page.waitForTimeout(1000)
+      await page.screenshot({ path: 'test-results/scenario10-job-detail.png' })
     }
   })
 })
