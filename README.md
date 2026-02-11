@@ -1,3 +1,9 @@
+<div align="center">
+  <img src="docs/images/hero-banner.svg" alt="Samaritan - Connect Workers & Contractors" width="100%"/>
+</div>
+
+<br/>
+
 # Samaritan
 
 A full-stack worker-contractor connection platform built with TypeScript. Connect day laborers with contractors for jobs ranging from general labor to specialized trades.
