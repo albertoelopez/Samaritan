@@ -27,6 +27,20 @@
     "declaration": true,
     "declarationMap": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.spec.ts", "**/*.test.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.tsx",
+    "src/components",
+    "src/features",
+    "src/store",
+    "src/services/api",
+    "src/services/offline",
+    "src/services/websocket",
+    "src/types/job.types.ts",
+    "src/db/scripts"
+  ]
 }

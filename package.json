@@ -14,7 +14,12 @@
     "migrate": "knex migrate:latest --knexfile knexfile.ts",
     "migrate:rollback": "knex migrate:rollback --knexfile knexfile.ts",
     "migrate:make": "knex migrate:make --knexfile knexfile.ts",
-    "seed": "knex seed:run --knexfile knexfile.ts"
+    "migrate:status": "knex migrate:status --knexfile knexfile.ts",
+    "seed": "knex seed:run --knexfile knexfile.ts",
+    "seed:make": "knex seed:make --knexfile knexfile.ts",
+    "db:reset": "ts-node src/db/scripts/reset-db.ts",
+    "db:status": "ts-node src/db/scripts/db-status.ts",
+    "db:validate": "ts-node src/db/scripts/validate-migrations.ts && ts-node src/db/scripts/validate-seeds.ts"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",

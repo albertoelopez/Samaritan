@@ -114,7 +114,7 @@ export class TimeEntryModel {
           EXTRACT(EPOCH FROM (end_time - start_time)) / 3600 - break_minutes / 60.0
         ) as total_hours
       `))
-      .first();
+      .first() as unknown as { total_hours: string } | undefined;
 
     return parseFloat(result?.total_hours || '0');
   }

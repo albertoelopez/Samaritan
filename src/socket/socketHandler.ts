@@ -82,8 +82,7 @@ export function setupSocketHandlers(io: Server): void {
         const message = await MessageModel.create({
           conversation_id: conversationId,
           sender_id: userId,
-          message_type: messageType as 'text' | 'image' | 'file' | 'system',
-          content,
+          message_text: content,
           attachments: null,
         });
 
@@ -124,15 +123,15 @@ export function setupSocketHandlers(io: Server): void {
     });
 
     // Handle message read
-    socket.on('message:read', async (data: { conversationId: string; messageId: string }) => {
+    socket.on('message:read', async (data: { conversationId: string }) => {
       try {
-        await MessageModel.markAsRead(data.messageId, userId);
-        socket.to(`conversation:${data.conversationId}`).emit('message:read', {
-          messageId: data.messageId,
+        await ConversationModel.updateLastRead(data.conversationId, userId);
+        socket.to(`conversation:${data.conversationId}`).emit('conversation:read', {
+          conversationId: data.conversationId,
           readBy: userId,
         });
       } catch (error) {
-        logger.error('Error marking message as read:', error);
+        logger.error('Error marking conversation as read:', error);
       }
     });
 
